@@ -1,0 +1,26 @@
+apply from: "${rootDir}/buildsystem/library.gradle"
+
+dependencies {
+    /* Architecture components */
+    implementation(Libs.navigation_fragment_ktx)
+    implementation(Libs.navigation_ui_ktx)
+
+    /* Android libraries */
+    implementation(Libs.constraintlayout)
+    implementation(Libs.legacy_support_v4)
+    implementation(Libs.appcompat)
+    implementation(Libs.material)
+
+    /* Ktx */
+    implementation(Libs.core_ktx)
+    implementation(Libs.livedata_ktx)
+    implementation(Libs.lives)
+
+    /* UI */
+    implementation(Libs.groupie)
+    implementation(Libs.groupie_databinding)
+    implementation(Libs.groupie_kotlin_android_extensions)
+
+    /* Misc */
+    implementation(Libs.quickpermissions_kotlin)
+}

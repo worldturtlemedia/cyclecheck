@@ -1,0 +1,6 @@
+apply from: "${rootDir}/buildsystem/feature.gradle"
+
+dependencies {
+    implementation project(path: ':core:core')
+    implementation project(path: ':core:core-ktx')
+}

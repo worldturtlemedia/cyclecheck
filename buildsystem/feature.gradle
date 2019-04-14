@@ -1,0 +1,113 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs"
+
+android {
+    compileSdkVersion androidTargetSdkVersion
+
+    defaultConfig {
+        minSdkVersion androidMinimumSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+
+        versionCode applicationVersionCode
+        versionName applicationVersionName
+
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix "-$suffixDebug"
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), "${rootDir}/proguard-rules.pro"
+        }
+        beta {
+            initWith release
+
+            versionNameSuffix "-$suffixBeta"
+
+            matchingFallbacks = ['debug']
+        }
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    kapt {
+        javacOptions {
+            // Increase the number of errors to show, stops Data-binding errors from hiding errors
+            option("-Xmaxerrs", 500)
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    /* Kotlin */
+    implementation(Libs.kotlin_stdlib_jdk7)
+    implementation(Libs.kotlinx_coroutines_core)
+    implementation(Libs.kotlinx_coroutines_android)
+
+    /* Architecture components */
+    implementation(Libs.lifecycle_extensions)
+    implementation(Libs.navigation_fragment_ktx)
+    implementation(Libs.navigation_ui_ktx)
+
+    /* Android libraries */
+    implementation(Libs.customtabs)
+    implementation(Libs.constraintlayout)
+    implementation(Libs.legacy_support_v4)
+    implementation(Libs.appcompat)
+    implementation(Libs.material)
+
+    /* Ktx */
+    implementation(Libs.core_ktx)
+    implementation(Libs.livedata_ktx)
+    implementation(Libs.lives)
+    implementation(Libs.timberkt)
+
+    /* Dependency Injection */
+    implementation(Libs.dagger)
+    implementation(Libs.dagger_android)
+    implementation(Libs.dagger_android_support)
+    kapt(Libs.dagger_compiler)
+    kapt(Libs.dagger_android_processor)
+
+    /* Shared Preferences */
+    implementation(Libs.kotpref)
+    implementation(Libs.initializer)
+
+    /* UI */
+    implementation(Libs.eiffel)
+    implementation(Libs.groupie)
+    implementation(Libs.groupie_databinding)
+    implementation(Libs.groupie_kotlin_android_extensions)
+
+    /* Misc */
+    implementation(Libs.joda_time)
+    implementation(Libs.quickpermissions_kotlin)
+
+    /* Debug Utils */
+    implementation(Libs.timber)
+
+    /* Testing */
+    testImplementation(Libs.junit)
+    testImplementation(Libs.core_testing)
+    testImplementation(Libs.mockk)
+    testImplementation(Libs.assertk)
+    testImplementation(Libs.robolectric)
+    androidTestImplementation(Libs.androidx_test_runner)
+    androidTestImplementation(Libs.espresso_core)
+    androidTestImplementation(Libs.espresso_contrib)
+}

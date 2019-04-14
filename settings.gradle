@@ -1,0 +1,17 @@
+/* Application modules */
+include ':app'
+
+/* Core modules */
+include ':core:core',
+        ':core:core-view',
+        ':core:core-ktx'
+
+/* Data modules */
+include ':data:data-api'
+//        ':data:data-db',
+//        ':data:data-repository'
+//
+///* Feature modules */
+//include ':features:feature-onboarding',
+//        ':features:feature-about',
+//        ':features:feature-translate'

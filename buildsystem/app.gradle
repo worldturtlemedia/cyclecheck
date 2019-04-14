@@ -1,0 +1,154 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs"
+
+android {
+    compileSdkVersion androidTargetSdkVersion
+
+    defaultConfig {
+        applicationId appApplicationId
+
+        minSdkVersion androidMinimumSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+
+        versionCode applicationVersionCode
+        versionName applicationVersionName
+
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile = rootProject.file("debug.keystore")
+            storePassword = "android"
+            keyAlias = "debugkey"
+            keyPassword = "android"
+        }
+        release {
+            storeFile = rootProject.file("whalesay.keystore")
+            storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+            keyAlias = System.getenv("ANDROID_KEYSTORE_ALIAS")
+            keyPassword = System.getenv("ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/core-ktx_release.kotlin_module'
+    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix "-$suffixDebug"
+            applicationIdSuffix ".$suffixDebug"
+            debuggable true
+            signingConfig signingConfigs.debug
+        }
+        beta {
+            initWith release
+            versionNameSuffix "-$suffixBeta"
+            applicationIdSuffix ".$suffixBeta"
+            signingConfig signingConfigs.release
+
+            matchingFallbacks = ['debug']
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), "${rootDir}/proguard-rules.pro"
+            signingConfig signingConfigs.release
+        }
+    }
+
+    kapt {
+        javacOptions {
+            // Increase the number of errors to show, stops Data-binding errors from hiding errors
+            option("-Xmaxerrs", 500)
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    /* Kotlin */
+    implementation(Libs.kotlin_stdlib_jdk7)
+    implementation(Libs.kotlinx_coroutines_core)
+    implementation(Libs.kotlinx_coroutines_android)
+
+    /* Architecture components */
+    implementation(Libs.lifecycle_extensions)
+    implementation(Libs.navigation_fragment_ktx)
+    implementation(Libs.navigation_ui_ktx)
+
+    /* Android libraries */
+    implementation(Libs.constraintlayout)
+    implementation(Libs.legacy_support_v4)
+    implementation(Libs.appcompat)
+    implementation(Libs.material)
+
+    /* Ktx */
+    implementation(Libs.core_ktx)
+    implementation(Libs.livedata_ktx)
+    implementation(Libs.lives)
+    implementation(Libs.timberkt)
+
+    /* Dependency Injection */
+    implementation(Libs.dagger)
+    implementation(Libs.dagger_android)
+    implementation(Libs.dagger_android_support)
+    kapt(Libs.dagger_compiler)
+    kapt(Libs.dagger_android_processor)
+
+    /* Shared Preferences */
+    implementation(Libs.kotpref)
+    implementation(Libs.initializer)
+
+    /* UI */
+    implementation(Libs.eiffel)
+    implementation(Libs.groupie)
+    implementation(Libs.groupie_databinding)
+    implementation(Libs.groupie_kotlin_android_extensions)
+
+    /* Network */
+    implementation(Libs.retrofit)
+    implementation(Libs.moshi)
+
+    /* Misc */
+    implementation(Libs.joda_time)
+    implementation(Libs.quickpermissions_kotlin)
+
+    /* Debug Utils */
+    implementation(Libs.timber)
+    debugImplementation(Libs.leakcanary_android)
+    debugImplementation(Libs.stetho)
+    debugImplementation(Libs.stetho_okhttp3)
+
+    /* Hyperion */
+    debugImplementation(Libs.hyperion_core)
+    releaseImplementation(Libs.hyperion_core_no_op)
+    debugImplementation(Libs.hyperion_attr)
+    debugImplementation(Libs.hyperion_measurement)
+    debugImplementation(Libs.hyperion_disk)
+    debugImplementation(Libs.hyperion_recorder)
+    debugImplementation(Libs.hyperion_phoenix)
+    debugImplementation(Libs.hyperion_crash)
+    debugImplementation(Libs.hyperion_shared_preferences)
+    debugImplementation(Libs.hyperion_geiger_counter)
+    debugImplementation(Libs.hyperion_timber)
+    debugImplementation(Libs.hyperion_build_config)
+
+    /* Testing */
+    testImplementation(Libs.junit)
+    testImplementation(Libs.core_testing)
+    testImplementation(Libs.mockk)
+    testImplementation(Libs.assertk)
+    testImplementation(Libs.robolectric)
+    androidTestImplementation(Libs.androidx_test_runner)
+    androidTestImplementation(Libs.espresso_core)
+    androidTestImplementation(Libs.espresso_contrib)
+}

@@ -1,0 +1,22 @@
+apply from: "${rootDir}/buildsystem/library.gradle"
+
+def secretsPropertiesFile = rootProject.file("secrets.properties")
+def secretsProperties = new Properties()
+secretsProperties.load(new FileInputStream(secretsPropertiesFile))
+
+android {
+    defaultConfig {
+        buildConfigField("String", "GOOGLE_CLOUD_API_KEY", secretsProperties["googlecloudapi"])
+    }
+}
+
+dependencies {
+    implementation project(":core:core")
+
+    /* Network */
+    implementation(Libs.retrofit2_kotlin_coroutines_adapter)
+    implementation(Libs.moshi)
+    implementation(Libs.logging_interceptor)
+    implementation(Libs.api)
+    kapt(Libs.se_ansman_kotshi_compiler)
+}

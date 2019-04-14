@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="actionBarSize">56dp</dimen>
+    <dimen name="zero">0dp</dimen>
+    <dimen name="margin_bottom_app_bar">32dp</dimen>
+    <dimen name="box_corner_radius">16dp</dimen>
+</resources>

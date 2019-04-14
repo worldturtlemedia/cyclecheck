@@ -1,0 +1,66 @@
+buildscript {
+    ext {
+        appVersionMajor = 1
+        appVersionMinor = 0
+        appVersionPatch = 0
+        applicationVersionCode = appVersionMajor * 10000 + appVersionMinor * 100 + appVersionPatch
+        applicationVersionName = "$appVersionMajor.$appVersionMinor.$appVersionPatch"
+
+        appApplicationId = "com.worldturtlemedia.cyclecheck"
+        androidTargetSdkVersion = 28
+        androidMinimumSdkVersion = 21
+        suffixDebug = "dev"
+        suffixBeta = "beta"
+    }
+
+    repositories {
+        google()
+        maven { url "https://plugins.gradle.org/m2/" }
+        jcenter()
+    }
+
+    dependencies {
+        classpath(Libs.com_android_tools_build_gradle)
+        classpath(Libs.kotlin_gradle_plugin)
+        classpath(Libs.navigation_safe_args_gradle_plugin)
+        classpath(Libs.oss_licenses_plugin)
+    }
+}
+
+plugins {
+    id "de.fayard.buildSrcVersions" version "0.3.2"
+    id "com.star-zero.gradle.githook" version "1.1.0"
+    id "org.jetbrains.dokka-android" version "0.9.18"
+    id "org.jlleitschuh.gradle.ktlint" version "6.2.1"
+}
+
+allprojects {
+    repositories {
+        google()
+        maven { url 'https://jitpack.io' }
+        jcenter()
+    }
+}
+
+subprojects {
+    apply plugin: "org.jlleitschuh.gradle.ktlint"
+    apply plugin: 'org.jetbrains.dokka-android'
+}
+
+githook {
+    hooks {
+        "pre-commit" {
+            task = "ktlintCheck --daemon"
+            shell = "echo 1"
+        }
+    }
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

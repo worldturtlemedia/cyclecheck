@@ -1,0 +1,5 @@
+apply from: "${rootDir}/buildsystem/library.gradle"
+
+dependencies {
+    implementation(Libs.quickpermissions_kotlin)
+}

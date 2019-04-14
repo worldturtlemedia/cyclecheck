@@ -1,0 +1,67 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/android:api-28-alpha
+        environment:
+          JAVA_OPTS: -Xmx1536m
+          GRADLE_OPTS: '-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs="-Xmx1536m -XX:+HeapDumpOnOutOfMemoryError"'
+    steps:
+      - checkout
+      - restore_cache:
+          key: sdks-licenses-build-tools-extras-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+      - run:
+          name: Decrypt secrets
+          command: ./secrets/secrets.sh decrypt $DECRYPT_SECRETS_PASSWORD
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          key: sdks-licenses-build-tools-extras-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+          paths:
+            - /opt/android/sdk/licenses
+            - /opt/android/sdk/build-tools
+            - /opt/android/sdk/extras
+      - save_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+          paths:
+            - ~/.gradle
+      - run:
+          name: Signing Report
+          command: ./gradlew signingReport
+      - run:
+          name: Check
+          command: |
+            if [ $CIRCLE_BRANCH = 'master' ] || [ $CIRCLE_BRANCH = 'develop' ]; then
+                ./gradlew --stacktrace ktlintCheck
+            fi
+      - run:
+          name: Test
+          command: |
+            if [ $CIRCLE_BRANCH = 'master' ] || [ $CIRCLE_BRANCH = 'develop' ]; then
+                ./gradlew --stacktrace testRelease
+            else
+                ./gradlew --stacktrace testDebug
+            fi
+      - run:
+          name: Build
+          command: |
+            if [ $CIRCLE_BRANCH = 'master' ];  then
+                ./gradlew assembleRelease
+                ./gradlew bundleRelease
+            elif [ $CIRCLE_BRANCH = 'develop' ]; then
+                ./gradlew assembleBeta
+                ./gradlew bundleBeta
+            else
+                ./gradlew assembleDebug
+            fi
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
+      - store_artifacts:
+          path: app/build/outputs
+          destination: outputs

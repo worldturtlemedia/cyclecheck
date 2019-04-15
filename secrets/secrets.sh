@@ -52,16 +52,16 @@ function decrypt() {
   fi
 
   echo -e "\nDecrypting keystore..."
-  crypto "d" "$password" "$CWD/encrypted-whalesay.keystore" "$PARENT/whalesay.keystore"
+  crypto "d" "$password" "$CWD/encrypted-cyclecheck.keystore" "$PARENT/cyclecheck.keystore"
 
   echo "Decrypting secrets.properties..."
   crypto "d" "$password" "$CWD/encrypted-secrets.properties" "$PARENT/secrets.properties"
 
-  echo "Decrypting private_key.pepk..."
-  crypto "d" "$password" "$CWD/encrypted-private_key.pepk" "$PARENT/private_key.pepk"
+  # echo "Decrypting private_key.pepk..."
+  # crypto "d" "$password" "$CWD/encrypted-private_key.pepk" "$PARENT/private_key.pepk"
 
   echo "Decrypting google-services.json..."
-  crypto "d" "$password" "$CWD/encrypted-google-services.json" "$PARENT/mobile/google-services.json"
+  crypto "d" "$password" "$CWD/encrypted-google-services.json" "$PARENT/app/google-services.json"
 }
 
 function encrypt() {
@@ -77,16 +77,16 @@ function encrypt() {
   fi
 
   echo -e "\nEncrypting keystore..."
-  crypto "e" "$password" "$PARENT/whalesay.keystore" "$CWD/encrypted-whalesay.keystore"
+  crypto "e" "$password" "$PARENT/cyclecheck.keystore" "$CWD/encrypted-cyclecheck.keystore"
 
   echo "Encrypting secrets.properties..."
   crypto "e" "$password" "$PARENT/secrets.properties" "$CWD/encrypted-secrets.properties"
 
-  echo "Encrypting private_key.pepk..."
-  crypto "e" "$password" "$PARENT/private_key.pepk" "$CWD/encrypted-private_key.pepk"
+  # echo "Encrypting private_key.pepk..."
+  # crypto "e" "$password" "$PARENT/private_key.pepk" "$CWD/encrypted-private_key.pepk"
 
   echo "Encrypting google-services.json..."
-  crypto "e" "$password" "$PARENT/mobile/google-services.json" "$CWD/encrypted-google-services.json"
+  crypto "e" "$password" "$PARENT/app/google-services.json" "$CWD/encrypted-google-services.json"
 }
 
 if [[ "$1" == "encrypt" ]]; then

@@ -42,6 +42,7 @@ android {
         javacOptions {
             // Increase the number of errors to show, stops Data-binding errors from hiding errors
             option("-Xmaxerrs", 500)
+            option("-Adagger.gradle.incremental")
         }
     }
 }

@@ -2,4 +2,9 @@ apply from: "${rootDir}/buildsystem/app.gradle"
 
 dependencies {
     implementation project(":core:core")
+    implementation project(":core:core-view")
+
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.google.android.material:material:1.0.0'
 }

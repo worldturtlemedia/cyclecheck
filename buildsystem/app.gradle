@@ -28,7 +28,7 @@ android {
             keyPassword = "android"
         }
         release {
-            storeFile = rootProject.file("whalesay.keystore")
+            storeFile = rootProject.file("cyclecheck.keystore")
             storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
             keyAlias = System.getenv("ANDROID_KEYSTORE_ALIAS")
             keyPassword = System.getenv("ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
@@ -37,6 +37,9 @@ android {
 
     packagingOptions {
         exclude 'META-INF/core-ktx_release.kotlin_module'
+
+        // TODO: temporary fi for https://github.com/Kotlin/kotlinx.coroutines/issues/1064
+        pickFirst("META-INF/atomicfu.kotlin_module")
     }
 
     buildTypes {
@@ -65,10 +68,15 @@ android {
         javacOptions {
             // Increase the number of errors to show, stops Data-binding errors from hiding errors
             option("-Xmaxerrs", 500)
+            option("-Adagger.gradle.incremental")
         }
     }
     dataBinding {
         enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -107,6 +115,10 @@ dependencies {
     /* Shared Preferences */
     implementation(Libs.kotpref)
     implementation(Libs.initializer)
+
+    /* Firebase */
+    implementation(Libs.firebase_core)
+    implementation(Libs.crashlytics)
 
     /* UI */
     implementation(Libs.eiffel)
@@ -152,3 +164,5 @@ dependencies {
     androidTestImplementation(Libs.espresso_core)
     androidTestImplementation(Libs.espresso_contrib)
 }
+
+apply plugin: 'com.google.gms.google-services'

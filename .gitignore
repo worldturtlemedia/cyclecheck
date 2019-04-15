@@ -38,5 +38,5 @@ org.eclipse.buildship.core.prefs
 secrets/backup
 private_key.pepk
 secrets.properties
-whalesay.keystore
-mobile/google-services.json
+cyclecheck.keystore
+app/google-services.json

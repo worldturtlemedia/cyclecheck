@@ -5,5 +5,5 @@
     <string name="author_name">Jordon de Hoog</string>
     <string name="author_url">https://worldturtlemedia.com</string>
     <string name="git_url">https://github.com/worldturtlemedia/cyclechecl</string>
-    <string name="permissions_location_rational">CycleCheck needs you location in order to get accurate weather information.  However if you don't trust us you can manually enter your location.</string>
+    <string name="permissions_location_rational">CycleCheck needs you location in order to get accurate weather information.  However if you don\'t trust us you can manually enter your location.</string>
 </resources>

@@ -47,6 +47,7 @@ android {
         javacOptions {
             // Increase the number of errors to show, stops Data-binding errors from hiding errors
             option("-Xmaxerrs", 500)
+            option("-Adagger.gradle.incremental")
         }
     }
 }
@@ -67,7 +68,6 @@ dependencies {
     /* Android libraries */
     implementation(Libs.customtabs)
     implementation(Libs.constraintlayout)
-    implementation(Libs.legacy_support_v4)
     implementation(Libs.appcompat)
     implementation(Libs.material)
 

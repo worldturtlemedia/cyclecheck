@@ -6,7 +6,7 @@ secretsProperties.load(new FileInputStream(secretsPropertiesFile))
 
 android {
     defaultConfig {
-        buildConfigField("String", "GOOGLE_CLOUD_API_KEY", secretsProperties["googlecloudapi"])
+//        buildConfigField("String", "API_KEY_OPEN_WEATHER", secretsProperties["apiopenweather"])
     }
 }
 

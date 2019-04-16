@@ -2,7 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs"
+apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion androidTargetSdkVersion
@@ -29,9 +30,9 @@ android {
         }
         release {
             storeFile = rootProject.file("cyclecheck.keystore")
-            storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
-            keyAlias = System.getenv("ANDROID_KEYSTORE_ALIAS")
-            keyPassword = System.getenv("ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+            storePassword = System.getenv("CC_ANDROID_KEYSTORE_PASSWORD")
+            keyAlias = System.getenv("CC_ANDROID_KEYSTORE_ALIAS")
+            keyPassword = System.getenv("CC_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
         }
     }
 

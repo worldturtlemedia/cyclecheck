@@ -16,6 +16,7 @@ buildscript {
     repositories {
         google()
         maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://maven.fabric.io/public" }
         jcenter()
     }
 
@@ -25,6 +26,7 @@ buildscript {
         classpath(Libs.navigation_safe_args_gradle_plugin)
         classpath(Libs.oss_licenses_plugin)
         classpath(Libs.google_services)
+        classpath(Libs.io_fabric_tools_gradle)
     }
 }
 

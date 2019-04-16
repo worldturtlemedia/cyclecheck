@@ -27,6 +27,8 @@ object Versions {
 
     const val customtabs: String = "28.0.0"
 
+    const val aapt2: String = "3.3.2-5309881"
+
     const val com_android_tools_build_gradle: String = "3.3.2"
 
     const val lint_gradle: String = "26.3.2"
@@ -81,6 +83,8 @@ object Versions {
 
     const val de_fayard_buildsrcversions_gradle_plugin: String = "0.3.2"
 
+    const val io_fabric_tools_gradle: String = "1.28.1"
+
     const val mockk: String = "1.9.3"
 
     const val joda_time: String = "2.10.1"
@@ -109,7 +113,7 @@ object Versions {
 
         const val currentVersion: String = "5.3.1"
 
-        const val nightlyVersion: String = "5.5-20190414000043+0000"
+        const val nightlyVersion: String = "5.5-20190416002935+0000"
 
         const val releaseCandidate: String = "5.4-rc-1"
     }

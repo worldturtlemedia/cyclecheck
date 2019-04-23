@@ -36,7 +36,6 @@ internal data class WindDetails(
     @Json(name = "deg") val degree: Long
 )
 
-@JsonSerializable
 internal data class WeatherCondition(
     val id: Int,
     val main: String,

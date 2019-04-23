@@ -11,7 +11,7 @@ internal interface OpenWeatherApi {
 
     @GET("weather")
     fun getCurrentWeatherFromLatLng(
-        @Query("lat") latitude: Double,
+        @Query("lat") latitude: Long,
         @Query("lon") longitude: Long
     ): APIResponse<CurrentWeatherResponse>
 

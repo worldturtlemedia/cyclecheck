@@ -5,5 +5,5 @@ import com.worldturtlemedia.cyclecheck.data.api.sources.weather.model.CurrentWea
 
 interface WeatherDataSource {
 
-    fun getCurrentWeather(): APIResult<CurrentWeather>
+    suspend fun getCurrentWeather(latitude: Long, longitude: Long): APIResult<CurrentWeather>
 }

@@ -7,9 +7,10 @@ include ':core:core',
         ':core:core-ktx'
 
 /* Data modules */
-include ':data:data-api'
+include ':data:data-models',
+        ':data:data-api',
+        ':data:data-repository'
 //        ':data:data-db',
-//        ':data:data-repository'
 //
 ///* Feature modules */
 //include ':features:feature-onboarding',

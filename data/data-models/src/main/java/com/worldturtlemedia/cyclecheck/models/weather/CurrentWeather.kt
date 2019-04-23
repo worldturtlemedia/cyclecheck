@@ -1,8 +1,6 @@
-package com.worldturtlemedia.cyclecheck.data.api.sources.weather.model
+package com.worldturtlemedia.cyclecheck.models.weather
 
 import org.joda.time.DateTime
-
-// TODO: Move to repository module
 
 data class CurrentWeather(
     val currentTemperature: Int,

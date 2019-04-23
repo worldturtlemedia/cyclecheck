@@ -1,0 +1,68 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion androidTargetSdkVersion
+
+    defaultConfig {
+        minSdkVersion androidMinimumSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+
+        versionCode applicationVersionCode
+        versionName applicationVersionName
+
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix "-$suffixDebug"
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), "${rootDir}/proguard-rules.pro"
+        }
+        beta {
+            initWith release
+
+            versionNameSuffix "-$suffixBeta"
+
+            matchingFallbacks = ['debug']
+        }
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+
+    kapt {
+        javacOptions {
+            // Increase the number of errors to show, stops Data-binding errors from hiding errors
+            option("-Xmaxerrs", 500)
+            option("-Adagger.gradle.incremental")
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    /* Kotlin */
+    implementation(Libs.kotlin_stdlib_jdk7)
+    implementation(Libs.kotlinx_coroutines_core)
+    implementation(Libs.kotlinx_coroutines_android)
+
+    /* Misc */
+    implementation(Libs.joda_time)
+
+    /* Debug Utils */
+    implementation(Libs.timber)
+
+    /* Testing */
+    testImplementation(Libs.junit)
+    testImplementation(Libs.mockk)
+    testImplementation(Libs.assertk)
+}

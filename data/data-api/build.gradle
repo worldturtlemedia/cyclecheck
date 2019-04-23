@@ -12,6 +12,7 @@ android {
 
 dependencies {
     implementation project(":core:core")
+    implementation project(":data:data-models")
 
     /* Network */
     implementation(Libs.retrofit2_kotlin_coroutines_adapter)

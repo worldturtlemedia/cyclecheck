@@ -1,4 +1,4 @@
-package com.worldturtlemedia.cyclecheck.data.api.sources.weather.model
+package com.worldturtlemedia.cyclecheck.models.weather
 
 data class Wind(
     val speed: Double,

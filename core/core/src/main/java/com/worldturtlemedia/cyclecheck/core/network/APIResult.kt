@@ -1,7 +1,6 @@
 package com.worldturtlemedia.cyclecheck.core.network
 
 import com.github.ajalt.timberkt.Timber.e
-import com.worldturtlemedia.cyclecheck.core.network.APIResult.Success
 import okhttp3.Response
 
 /**
@@ -38,7 +37,7 @@ sealed class APIResult<out R> {
  * `true` if [APIResult] is of type [Success] & holds non-null [Success.data].
  */
 val APIResult<*>.succeeded: Boolean
-    get() = this is Success && data != null
+    get() = this is APIResult.Success && data != null
 
 val APIResult.Error.errorCode: Int?
     get() = response?.code()
@@ -52,3 +51,20 @@ val APIResult.Error.isServerError: Boolean
 fun <T> T.asAPIResultSuccess() = APIResult.Success(this)
 
 fun Throwable.asAPIResultError() = APIResult.Error(this)
+
+fun <T> APIResult<T>.dataOrThrow(): T = when (this) {
+    is APIResult.Success -> data
+    is APIResult.Error -> throw exception
+}
+
+fun <T> APIResult<T>.dataOrNull() = if (this is APIResult.Success) data else null
+
+inline fun <T> APIResult<T>.onSuccess(block: (data: T) -> Unit): APIResult<T> = also { result ->
+    if (result is APIResult.Success) block(result.data)
+}
+
+inline fun <T> APIResult<T>.onError(
+    block: (exception: Throwable, response: Response?) -> Unit
+): APIResult<T> = also { result ->
+    if (result is APIResult.Error) block(result.exception, result.response)
+}

@@ -30,4 +30,4 @@ sealed class Misc : WeatherCondition() {
     object Smoke : Misc()
 }
 
-sealed class Clear : WeatherCondition()
+object Clear : WeatherCondition()

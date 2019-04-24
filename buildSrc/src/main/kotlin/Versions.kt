@@ -75,7 +75,7 @@ object Versions {
 
     const val com_star_zero_gradle_githook_gradle_plugin: String = "1.1.0"
 
-    const val assertk: String = "0.10"
+    const val assertk: String = "0.13"
 
     const val com_willowtreeapps_hyperion: String = "0.9.27"
 
